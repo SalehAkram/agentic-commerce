@@ -1,0 +1,6 @@
+@AgenticCommerce.Api_HostAddress = http://localhost:5279
+
+GET {{AgenticCommerce.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

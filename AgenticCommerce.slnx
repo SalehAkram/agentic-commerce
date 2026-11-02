@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="AgenticCommerce.Api/AgenticCommerce.Api.csproj" />
+  <Project Path="AgenticCommerce.Core/AgenticCommerce.Core.csproj" Id="2005b4f9-18b8-4ec4-bec1-20efb85dd46b" />
+  <Project Path="AgenticCommerce.Infra/AgenticCommerce.Infra.csproj" Id="960cc7b5-56a2-46fb-958a-138d373a380f" />
+</Solution>
