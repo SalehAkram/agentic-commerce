@@ -10,4 +10,17 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.13" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AgenticCommerce.Infra\AgenticCommerce.Infra.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="CommandHandler\" />
+    <Folder Include="Controllers\v1\" />
+    <Folder Include="Dtos\v1\" />
+    <Folder Include="QueryHandler\" />
+    <Folder Include="Queries\" />
+  </ItemGroup>
+
 </Project>
