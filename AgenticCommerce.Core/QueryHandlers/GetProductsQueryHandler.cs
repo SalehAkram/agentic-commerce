@@ -1,6 +1,6 @@
 using AgenticCommerce.Core.Contracts;
 using AgenticCommerce.Core.Queries;
-using AgenticCommerce.Core.Results;
+using AgenticCommerce.Core.Dtos;
 using MediatR;
 
 namespace AgenticCommerce.Core.QueryHandlers;

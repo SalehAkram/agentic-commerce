@@ -23,6 +23,8 @@ if (app.Environment.IsDevelopment())
     await ProductSeeder.SeedAsync(context);
 
     app.MapOpenApi();
+    app.UseSwaggerUI(options =>
+        options.SwaggerEndpoint("../openapi/v1.json", "AgenticCommerce API v1"));
 }
 
 app.UseHttpsRedirection();
