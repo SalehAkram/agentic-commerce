@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using AgenticCommerce.Core.Contracts;
+using AgenticCommerce.Infra.Repository;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +17,7 @@ public static class SqlExtension
         }
 
         services.AddDbContext<AgenticCommerceDbContext>(options => options.UseSqlServer(connectionString));
+        services.AddScoped<IProductRepository, ProductRepository>();
         return services;
     }
 }
