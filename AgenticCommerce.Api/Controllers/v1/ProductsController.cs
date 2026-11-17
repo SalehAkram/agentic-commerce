@@ -17,7 +17,9 @@ public class ProductsController(ISender sender) : ControllerBase
         [FromQuery] GetProductsRequest request,
         CancellationToken cancellationToken = default)
     {
-        var result = await sender.Send(new GetProductsQuery(request.PageNumber, request.PageSize), cancellationToken);
+        var query = new GetProductsQuery(request.PageNumber, request.PageSize,
+            request.SearchTerm, request.MinPrice, request.MaxPrice, request.InStockOnly);
+        var result = await sender.Send(query, cancellationToken);
         return Ok(result);
     }
 }
