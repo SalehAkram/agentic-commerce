@@ -1,5 +1,5 @@
-using AgenticCommerce.Core.Modules.Catalogue.Entities;
-using AgenticCommerce.Infra.Modules.Catalogue.Configurations;
+using AgenticCommerce.Core.Entities;
+using AgenticCommerce.Infra.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace AgenticCommerce.Infra;

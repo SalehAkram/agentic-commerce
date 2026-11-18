@@ -1,10 +1,10 @@
 using AgenticCommerce.Infra;
-using AgenticCommerce.Core.Shared.Behaviors;
-using AgenticCommerce.Core.Shared.Contracts;
-using AgenticCommerce.Core.Modules.Catalogue.Validators;
+using AgenticCommerce.Core.Behaviors;
+using AgenticCommerce.Core.Contracts;
+using AgenticCommerce.Core.Validators;
 using AgenticCommerce.Api.ExceptionHandlers;
-using AgenticCommerce.Core.Modules.Catalogue.Queries;
-using AgenticCommerce.Infra.Modules.Catalogue.Seeding;
+using AgenticCommerce.Core.Queries;
+using AgenticCommerce.Infra.Seeding;
 
 var builder = WebApplication.CreateBuilder(args);
 

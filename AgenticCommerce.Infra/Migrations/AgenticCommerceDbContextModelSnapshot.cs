@@ -21,7 +21,7 @@ namespace AgenticCommerce.Infra.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AgenticCommerce.Core.Modules.Catalogue.Entities.Product", b =>
+            modelBuilder.Entity("AgenticCommerce.Core.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

@@ -1,7 +1,6 @@
-using AgenticCommerce.Core.Modules.Catalogue.Contracts;
+using AgenticCommerce.Core.Contracts;
 using Microsoft.EntityFrameworkCore;
-using AgenticCommerce.Core.Shared.Contracts;
-using AgenticCommerce.Infra.Modules.Catalogue.Repository;
+using AgenticCommerce.Infra.Repository;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
