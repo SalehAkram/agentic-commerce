@@ -19,6 +19,7 @@ public static class SqlExtension
         services.AddDbContext<AgenticCommerceDbContext>(options => options.UseSqlServer(connectionString));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IBasketRepository, BasketRepository>();
         return services;
     }
 }

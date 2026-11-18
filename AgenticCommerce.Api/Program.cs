@@ -44,6 +44,7 @@ if (app.Environment.IsDevelopment())
     await using var scope = app.Services.CreateAsyncScope();
     var context = scope.ServiceProvider.GetRequiredService<AgenticCommerceDbContext>();
     await ProductSeeder.SeedAsync(context);
+    await CustomerSeeder.SeedAsync(context);
 
     app.MapOpenApi();
     app.UseSwaggerUI(options =>
