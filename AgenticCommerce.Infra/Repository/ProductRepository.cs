@@ -33,7 +33,7 @@ public class ProductRepository(AgenticCommerceDbContext context) : IProductRepos
     public void Add(Product entity) => throw new NotImplementedException();
     public void Remove(Product entity) => throw new NotImplementedException();
     public Task<Product?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
-        => throw new NotImplementedException();
+        => context.Products.SingleOrDefaultAsync(product => product.Id == id, cancellationToken);
     public Task<Product?> FindByAsync(Expression<Func<Product, bool>> predicate, CancellationToken cancellationToken = default)
         => throw new NotImplementedException();
 }

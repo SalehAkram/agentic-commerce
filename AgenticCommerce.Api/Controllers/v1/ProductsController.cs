@@ -10,6 +10,17 @@ namespace AgenticCommerce.Api.Controllers.v1;
 [Route("api/v1/products")]
 public class ProductsController(ISender sender) : ControllerBase
 {
+    [HttpGet("{id}")]
+    [ProducesResponseType<ProductSummary>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ValidationProblemDetails>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<ProductSummary>> GetProductById(
+        [FromRoute] int id, CancellationToken cancellationToken = default)
+    {
+        var result = await sender.Send(new GetProductByIdQuery(id), cancellationToken);
+        return Ok(result);
+    }
+
     [HttpGet]
     [ProducesResponseType<GetProductsResult>(StatusCodes.Status200OK)]
     [ProducesResponseType<ValidationProblemDetails>(StatusCodes.Status400BadRequest)]

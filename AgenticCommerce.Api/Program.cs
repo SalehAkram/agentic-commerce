@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddTransient<IRequestValidator<GetProductsQuery>, GetProductsQueryValidator>();
+builder.Services.AddTransient<IRequestValidator<GetProductByIdQuery>, GetProductByIdQueryValidator>();
 builder.Services.AddMediatR(configuration =>
 {
     configuration.RegisterServicesFromAssemblyContaining<GetProductsQuery>();
@@ -19,9 +20,20 @@ builder.Services.AddMediatR(configuration =>
 });
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<RequestValidationExceptionHandler>();
+builder.Services.AddExceptionHandler<ResourceNotFoundExceptionHandler>();
 builder.Services.AddSqlServer(builder.Configuration);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+    options.AddSchemaTransformer((schema, context, cancellationToken) =>
+    {
+        // Route IDs are integers; avoid a numeric/string union that Swagger UI cannot validate reliably.
+        if (context.JsonTypeInfo.Type == typeof(int))
+        {
+            schema.Type = Microsoft.OpenApi.JsonSchemaType.Integer;
+            schema.Pattern = null;
+        }
+        return Task.CompletedTask;
+    }));
 
 var app = builder.Build();
 app.UseExceptionHandler();
