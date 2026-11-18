@@ -1,4 +1,4 @@
-using AgenticCommerce.Core.Exceptions;
+using AgenticCommerce.Core.Shared.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
