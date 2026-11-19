@@ -44,7 +44,7 @@ public class Basket : Entity<int>, IAggregateRoot
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(productId);
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
         var item = _items.SingleOrDefault(item => item.ProductId == productId)
-            ?? throw new InvalidOperationException("The product is not in this basket.");
+            ?? throw new ResourceNotFoundException("Basket item for product", productId);
         item.ChangeQuantity(quantity);
         UpdatedAtUtc = DateTime.UtcNow;
     }

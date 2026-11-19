@@ -18,6 +18,7 @@ builder.Services.AddTransient<IRequestValidator<GetBasketQuery>, GetBasketQueryV
 builder.Services.AddTransient<IRequestValidator<GetProductsQuery>, GetProductsQueryValidator>();
 builder.Services.AddTransient<IRequestValidator<GetProductByIdQuery>, GetProductByIdQueryValidator>();
 builder.Services.AddTransient<IRequestValidator<AddBasketItemCommand>, AddBasketItemCommandValidator>();
+builder.Services.AddTransient<IRequestValidator<ChangeBasketItemQuantityCommand>, ChangeBasketItemQuantityCommandValidator>();
 builder.Services.AddMediatR(configuration =>
 {
     configuration.RegisterServicesFromAssemblyContaining<GetProductsQuery>();

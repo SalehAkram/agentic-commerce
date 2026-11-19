@@ -44,6 +44,26 @@ public class BasketController(ISender sender, IUnitOfWork unitOfWork, IWebHostEn
         return Ok(result);
     }
 
+    [HttpPut("items/{productId}")]
+    [ProducesResponseType<BasketResult>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ValidationProblemDetails>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<BasketResult>> ChangeItemQuantity(
+        [FromRoute] int productId, [FromBody] ChangeBasketItemQuantityRequest request,
+        CancellationToken cancellationToken = default)
+    {
+        if (!environment.IsDevelopment())
+        {
+            return Problem(statusCode: StatusCodes.Status403Forbidden, detail: "Development customer access is disabled.");
+        }
+
+        var customerId = await GetDevelopmentCustomerIdAsync(cancellationToken);
+        var result = await sender.Send(
+            new ChangeBasketItemQuantityCommand(customerId, productId, request.Quantity), cancellationToken);
+        return Ok(result);
+    }
+
     private async Task<Guid> GetDevelopmentCustomerIdAsync(CancellationToken cancellationToken)
     {
         // Replace this development identity lookup with validated authentication when introduced.
