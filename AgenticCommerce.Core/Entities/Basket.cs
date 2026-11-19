@@ -1,4 +1,5 @@
 using AgenticCommerce.Core.Contracts;
+using AgenticCommerce.Core.Exceptions;
 
 namespace AgenticCommerce.Core.Entities;
 
@@ -28,7 +29,12 @@ public class Basket : Entity<int>, IAggregateRoot
         if (item is null)
             _items.Add(new BasketItem(productId, quantity));
         else
-            item.ChangeQuantity(checked(item.Quantity + quantity));
+        {
+            if ((long)item.Quantity + quantity > int.MaxValue)
+                throw new DomainRuleException("Total quantity exceeds the supported range.", "Quantity");
+
+            item.ChangeQuantity(item.Quantity + quantity);
+        }
         UpdatedAtUtc = DateTime.UtcNow;
     }
 
