@@ -3,11 +3,12 @@ using AgenticCommerce.Core.Contracts;
 using AgenticCommerce.Core.Dtos;
 using AgenticCommerce.Core.Entities;
 using AgenticCommerce.Core.Exceptions;
+using AgenticCommerce.Core.Services;
 using MediatR;
 
 namespace AgenticCommerce.Core.CommandHandlers;
 
-public class AddBasketItemCommandHandler(IUnitOfWork unitOfWork) : IRequestHandler<AddBasketItemCommand, BasketResult>
+public class AddBasketItemCommandHandler(IUnitOfWork unitOfWork, BasketResultMapper mapper) : IRequestHandler<AddBasketItemCommand, BasketResult>
 {
     public async Task<BasketResult> Handle(AddBasketItemCommand request, CancellationToken cancellationToken)
     {
@@ -31,8 +32,8 @@ public class AddBasketItemCommandHandler(IUnitOfWork unitOfWork) : IRequestHandl
 
         basket.AddItem(request.ProductId, request.Quantity);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        var items = basket.Items.OrderBy(item => item.ProductId)
-            .Select(item => new BasketItemResult(item.ProductId, item.Quantity)).ToArray();
-        return new BasketResult(basket.Id, basket.CustomerId, basket.Status, basket.UpdatedAtUtc, items);
+        var productIds = basket.Items.Select(item => item.ProductId).Distinct().ToArray();
+        var products = await unitOfWork.ProductRepository.GetByIdsAsync(productIds, cancellationToken);
+        return mapper.Map(request.CustomerId, basket, products);
     }
 }

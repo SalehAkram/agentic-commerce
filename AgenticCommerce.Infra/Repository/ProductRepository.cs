@@ -8,6 +8,18 @@ namespace AgenticCommerce.Infra.Repository;
 
 public class ProductRepository(AgenticCommerceDbContext context) : IProductRepository
 {
+    public async Task<IReadOnlyList<Product>> GetByIdsAsync(IReadOnlyCollection<int> ids, CancellationToken cancellationToken = default)
+    {
+        if (ids.Count == 0)
+        {
+            return Array.Empty<Product>();
+        }
+
+        return await context.Products.AsNoTracking()
+            .Where(product => ids.Contains(product.Id))
+            .ToListAsync(cancellationToken);
+    }
+
     public Task<int> CountAsync(ProductSearchCriteria criteria, CancellationToken cancellationToken = default)
         => ApplyFilters(criteria).CountAsync(cancellationToken);
 

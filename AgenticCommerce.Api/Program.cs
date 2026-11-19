@@ -4,6 +4,7 @@ using AgenticCommerce.Core.Contracts;
 using AgenticCommerce.Core.Validators;
 using AgenticCommerce.Api.ExceptionHandlers;
 using AgenticCommerce.Core.Queries;
+using AgenticCommerce.Core.Services;
 using AgenticCommerce.Infra.Seeding;
 using AgenticCommerce.Core.Commands;
 
@@ -12,6 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddTransient<BasketResultMapper>();
+builder.Services.AddTransient<IRequestValidator<GetBasketQuery>, GetBasketQueryValidator>();
 builder.Services.AddTransient<IRequestValidator<GetProductsQuery>, GetProductsQueryValidator>();
 builder.Services.AddTransient<IRequestValidator<GetProductByIdQuery>, GetProductByIdQueryValidator>();
 builder.Services.AddTransient<IRequestValidator<AddBasketItemCommand>, AddBasketItemCommandValidator>();
